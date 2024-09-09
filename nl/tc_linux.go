@@ -1460,7 +1460,7 @@ func (p *TcPedit) SetIPv6Src(ip6 net.IP) {
 
 func (p *TcPedit) SetDstIP(ip net.IP) {
 	if ip.To4() != nil {
-		p.SetIPv4Dst(ip)
+		p.SetIPv4Dst(ip.To4())
 	} else {
 		p.SetIPv6Dst(ip)
 	}
@@ -1468,7 +1468,7 @@ func (p *TcPedit) SetDstIP(ip net.IP) {
 
 func (p *TcPedit) SetSrcIP(ip net.IP) {
 	if ip.To4() != nil {
-		p.SetIPv4Src(ip)
+		p.SetIPv4Src(ip.To4())
 	} else {
 		p.SetIPv6Src(ip)
 	}
@@ -1533,7 +1533,7 @@ func (p *TcPedit) SetIPv6Dst(ip6 net.IP) {
 }
 
 func (p *TcPedit) SetIPv4Src(ip net.IP) {
-	u32 := NativeEndian().Uint32(ip[12:16])
+	u32 := NativeEndian().Uint32(ip[:4])
 
 	tKey := TcPeditKey{}
 	tKeyEx := TcPeditKeyEx{}
@@ -1549,7 +1549,7 @@ func (p *TcPedit) SetIPv4Src(ip net.IP) {
 }
 
 func (p *TcPedit) SetIPv4Dst(ip net.IP) {
-	u32 := NativeEndian().Uint32(ip[12:16])
+	u32 := NativeEndian().Uint32(ip[:4])
 
 	tKey := TcPeditKey{}
 	tKeyEx := TcPeditKeyEx{}
